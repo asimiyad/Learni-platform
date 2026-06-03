@@ -248,3 +248,27 @@ body {
   border: 1px solid var(--outline-variant);
   border-radius: 20px;
 }
+
+.shadow-ambient {
+  box-shadow: 0px 4px 20px rgba(0, 104, 95, 0.05);
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .text-display-lg {
+    font-size: 32px;
+  }
+  .text-headline-md {
+    font-size: 20px;
+  }
+  .text-stat-value {
+    font-size: 18px;
+  }
+}
