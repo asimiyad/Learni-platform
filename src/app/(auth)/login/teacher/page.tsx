@@ -57,6 +57,11 @@ export default function TeacherLoginPage() {
           <div className="bento-card bg-surface" style={{ padding: "32px 28px", borderRadius: 20, border: "1px solid var(--outline-variant)", boxShadow: "0 8px 24px rgba(0,0,0,0.02)" }}>
             <div style={{ height: 4, background: "linear-gradient(90deg, var(--primary) 0%, var(--inverse-primary) 100%)", borderRadius: 99, marginBottom: 24 }} />
             <LoginForm />
+
+            <div style={{ marginTop: 20, paddingTop: 20, borderTop: "1px solid var(--outline-variant)" }}>
+              <p className="text-label-sm" style={{ color: "var(--on-surface-variant)", marginBottom: 8, textAlign: "center" }}>Demo Account</p>
+              <DemoButton email="teacher@learni.edu" password="password123" label="Login as Demo Teacher" />
+            </div>
           </div>
 
           <div style={{ marginTop: 32, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, color: "var(--on-surface-variant)", fontSize: 13, fontWeight: 500 }}>

@@ -1,6 +1,6 @@
 "use client"
 
-import { LoginForm } from "../login-form"
+import { LoginForm, DemoButton } from "../login-form"
 import Link from "next/link"
 import { SiteLogo } from "@/components/SiteLogo"
 
@@ -59,6 +59,11 @@ export default function StudentLoginPage() {
         <div className="bento-card" style={{ padding: "32px 28px" }}>
           <div style={{ height: 4, borderRadius: 99, background: "linear-gradient(90deg, var(--primary-fixed) 0%, var(--primary) 50%, var(--primary-fixed) 100%)", marginBottom: 24 }} />
           <LoginForm />
+
+          <div style={{ marginTop: 20, paddingTop: 20, borderTop: "1px solid var(--outline-variant)" }}>
+            <p className="text-label-sm" style={{ color: "var(--on-surface-variant)", marginBottom: 8, textAlign: "center" }}>Demo Account</p>
+            <DemoButton email="student@learni.edu" password="password123" label="Login as Demo Student" />
+          </div>
         </div>
 
         <p style={{ textAlign: "center", marginTop: 16 }}>

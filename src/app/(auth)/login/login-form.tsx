@@ -4,6 +4,51 @@ import { useState } from "react"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 
+export function DemoButton({ email, password, label }: { email: string; password: string; label: string }) {
+  const router = useRouter()
+  const [loading, setLoading] = useState(false)
+
+  async function handleDemoLogin() {
+    setLoading(true)
+    const result = await signIn("credentials", { email, password, redirect: false })
+    if (result?.error) {
+      setLoading(false)
+      return
+    }
+    router.push("/")
+    router.refresh()
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={handleDemoLogin}
+      disabled={loading}
+      style={{
+        width: "100%",
+        padding: "10px 16px",
+        borderRadius: 10,
+        border: "1px solid var(--primary-fixed-dim)",
+        background: "var(--primary-fixed)",
+        color: "var(--on-primary-fixed-variant)",
+        fontSize: 13,
+        fontWeight: 600,
+        cursor: loading ? "not-allowed" : "pointer",
+        transition: "all 0.2s ease",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 8,
+      }}
+      onMouseEnter={(e) => { if (!loading) e.currentTarget.style.background = "var(--primary-container)" }}
+      onMouseLeave={(e) => { if (!loading) e.currentTarget.style.background = "var(--primary-fixed)" }}
+    >
+      <span className="material-symbols-outlined" style={{ fontSize: 16 }}>preview</span>
+      {loading ? "Signing in..." : label}
+    </button>
+  )
+}
+
 export function LoginForm() {
   const router = useRouter()
   const [email, setEmail] = useState("")
