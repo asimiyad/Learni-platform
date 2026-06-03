@@ -17,6 +17,12 @@ export const metadata: Metadata = {
   description: "A gamified learning platform for primary and middle school students",
 }
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+}
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${outfit.variable} h-full antialiased`}>

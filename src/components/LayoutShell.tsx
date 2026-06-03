@@ -192,8 +192,8 @@ export function LayoutShell({
       </header>
 
       {/* Main content */}
-      <main className="mt-14 md:mt-16 md:ml-[280px] min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)]" style={{ padding: "16px" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+      <main className="mt-14 md:mt-16 md:ml-[280px] min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-4rem)] p-4 sm:p-6 lg:p-8">
+        <div className="mx-auto w-full" style={{ maxWidth: "1280px" }}>
           {children}
         </div>
       </main>
