@@ -36,186 +36,56 @@ export default function RegisterPage() {
   }
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 24,
-        background: "var(--surface-bright)",
-      }}
-    >
-      <main
-        className="login-card-shadow"
-        style={{
-          width: "100%",
-          maxWidth: 1200,
-          height: 800,
-          maxHeight: "90vh",
-          background: "var(--surface-container-lowest)",
-          borderRadius: 16,
-          overflow: "hidden",
-          display: "flex",
-          flexDirection: "row",
-          border: "1px solid var(--outline-variant)",
-        }}
-      >
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 bg-surface-bright">
+      <main className="w-full max-w-[1200px] bg-surface-container-lowest rounded-2xl border border-outline-variant overflow-hidden flex flex-col md:flex-row shadow-sm" style={{ maxHeight: "90vh" }}>
         {/* Left Side: Hero */}
-        <section
-          className="hidden md:flex"
-          style={{
-            width: "50%",
-            height: "100%",
-            position: "relative",
-            flexDirection: "column",
-            justifyContent: "flex-end",
-            padding: 48,
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background: "linear-gradient(135deg, rgba(0,104,95,0.85) 0%, rgba(0,131,120,0.7) 100%)",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              top: 48,
-              left: 48,
-              width: 96,
-              height: 96,
-              borderRadius: "50%",
-              background: "rgba(137,245,231,0.15)",
-              filter: "blur(40px)",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              bottom: 120,
-              right: 48,
-              width: 128,
-              height: 128,
-              borderRadius: "50%",
-              background: "rgba(107,216,203,0.15)",
-              filter: "blur(40px)",
-            }}
-          />
-          <div style={{ position: "relative", zIndex: 10, color: "#fff" }}>
-            <div style={{ marginBottom: 24 }}>
-              <span
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  padding: "4px 14px",
-                  borderRadius: 99,
-                  background: "rgba(218,225,255,0.15)",
-                  border: "1px solid rgba(179,197,255,0.3)",
-                  backdropFilter: "blur(8px)",
-                }}
-              >
-                <span
-                  className="material-symbols-outlined fill"
-                  style={{ fontSize: 18, color: "#b3c5ff" }}
-                >
-                  auto_awesome
-                </span>
-                <span className="text-label-sm" style={{ color: "#dae1ff" }}>
-                  Join 50k+ Educators & Students
-                </span>
+        <section className="hidden md:flex w-1/2 relative flex-col justify-end p-12 overflow-hidden">
+          <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(0,104,95,0.85) 0%, rgba(0,131,120,0.7) 100%)" }} />
+          <div className="absolute top-12 left-12 w-24 h-24 rounded-full blur-[40px]" style={{ background: "rgba(137,245,231,0.15)" }} />
+          <div className="absolute bottom-[120px] right-12 w-32 h-32 rounded-full blur-[40px]" style={{ background: "rgba(107,216,203,0.15)" }} />
+          <div className="relative z-10 text-white">
+            <div className="mb-6">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm border" style={{ background: "rgba(218,225,255,0.15)", borderColor: "rgba(179,197,255,0.3)" }}>
+                <span className="material-symbols-outlined fill text-sm" style={{ color: "#b3c5ff" }}>auto_awesome</span>
+                <span style={{ color: "#dae1ff" }}>Join 50k+ Educators & Students</span>
               </span>
             </div>
-            <h1 className="text-headline-xl" style={{ marginBottom: 8 }}>
-              Begin your learning journey.
-            </h1>
-            <p className="text-body-lg" style={{ opacity: 0.9, maxWidth: 420 }}>
-              Create your account and unlock a world of interactive lessons, quizzes, and rewards.
-            </p>
+            <h1 className="text-3xl font-bold mb-2">Begin your learning journey.</h1>
+            <p className="text-sm opacity-90 max-w-xs">Create your account and unlock a world of interactive lessons, quizzes, and rewards.</p>
           </div>
         </section>
 
         {/* Right Side: Form */}
-        <section
-          className="md:w-1/2"
-          style={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            padding: "24px 32px",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
-            <SiteLogo className="h-8 w-8" color="var(--primary)" />
-            <span className="text-headline-md" style={{ color: "var(--primary)", fontWeight: 700 }}>
-              Learni
-            </span>
+        <section className="w-full md:w-1/2 flex flex-col p-6 sm:p-8 md:p-10 overflow-y-auto">
+          <div className="flex items-center gap-2.5 mb-8">
+            <SiteLogo className="h-7 w-7 sm:h-8 sm:w-8" color="var(--primary)" />
+            <span className="text-lg font-bold text-primary">Learni</span>
           </div>
 
-          <div
-            style={{
-              flex: 1,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              maxWidth: 400,
-              margin: "0 auto",
-              width: "100%",
-            }}
-          >
-            <div style={{ marginBottom: 32 }}>
-              <h1 className="text-headline-lg" style={{ color: "var(--on-surface)", marginBottom: 8 }}>
-                Create Account
-              </h1>
-              <p className="text-body-md" style={{ color: "var(--on-surface-variant)" }}>
-                Join Learni as a teacher or student
-              </p>
+          <div className="flex-1 flex flex-col justify-center max-w-sm mx-auto w-full">
+            <div className="mb-6 sm:mb-8">
+              <h1 className="text-xl sm:text-2xl font-bold text-on-background mb-1">Create Account</h1>
+              <p className="text-sm text-on-surface-variant">Join Learni as a teacher or student</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-5">
               {error && (
-                <div
-                  style={{
-                    background: "var(--error-container)",
-                    border: "1px solid var(--error)",
-                    color: "var(--on-error-container)",
-                    padding: "10px 14px",
-                    borderRadius: 8,
-                    fontSize: 13,
-                  }}
-                >
+                <div className="text-sm px-3 py-2 rounded-lg" style={{ background: "var(--error-container)", border: "1px solid var(--error)", color: "var(--on-error-container)" }}>
                   {error}
                 </div>
               )}
 
-              <div className="flex flex-col gap-6">
-                {/* Name */}
-                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                  <label className="text-label-md" style={{ color: "var(--on-surface)" }}>Full Name</label>
-                  <div style={{ position: "relative" }}>
-                    <span
-                      className="material-symbols-outlined"
-                      style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--outline)", fontSize: 18 }}
-                    >person</span>
+              <div className="flex flex-col gap-4 sm:gap-5">
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-semibold text-on-background">Full Name</label>
+                  <div className="relative">
+                    <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" style={{ fontSize: 18 }}>person</span>
                     <input
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      style={{
-                        width: "100%",
-                        padding: "10px 12px 10px 38px",
-                        background: "var(--surface-container-high)",
-                        border: "2px solid transparent",
-                        borderRadius: 10,
-                        fontSize: 14,
-                        outline: "none",
-                        transition: "all 0.2s ease",
-                      }}
+                      className="w-full pl-9 pr-3 py-2.5 rounded-lg text-sm outline-none transition-all"
+                      style={{ background: "var(--surface-container-high)", border: "2px solid transparent" }}
                       onFocus={(e) => { e.currentTarget.style.background = "var(--surface-container-lowest)"; e.currentTarget.style.borderColor = "var(--primary)" }}
                       onBlur={(e) => { e.currentTarget.style.background = "var(--surface-container-high)"; e.currentTarget.style.borderColor = "transparent" }}
                       placeholder="Your full name"
@@ -224,28 +94,16 @@ export default function RegisterPage() {
                   </div>
                 </div>
 
-                {/* Email */}
-                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                  <label className="text-label-md" style={{ color: "var(--on-surface)" }}>Email Address</label>
-                  <div style={{ position: "relative" }}>
-                    <span
-                      className="material-symbols-outlined"
-                      style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--outline)", fontSize: 18 }}
-                    >mail</span>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-semibold text-on-background">Email Address</label>
+                  <div className="relative">
+                    <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" style={{ fontSize: 18 }}>mail</span>
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      style={{
-                        width: "100%",
-                        padding: "10px 12px 10px 38px",
-                        background: "var(--surface-container-high)",
-                        border: "2px solid transparent",
-                        borderRadius: 10,
-                        fontSize: 14,
-                        outline: "none",
-                        transition: "all 0.2s ease",
-                      }}
+                      className="w-full pl-9 pr-3 py-2.5 rounded-lg text-sm outline-none transition-all"
+                      style={{ background: "var(--surface-container-high)", border: "2px solid transparent" }}
                       onFocus={(e) => { e.currentTarget.style.background = "var(--surface-container-lowest)"; e.currentTarget.style.borderColor = "var(--primary)" }}
                       onBlur={(e) => { e.currentTarget.style.background = "var(--surface-container-high)"; e.currentTarget.style.borderColor = "transparent" }}
                       placeholder="name@school.edu"
@@ -254,28 +112,16 @@ export default function RegisterPage() {
                   </div>
                 </div>
 
-                {/* Password */}
-                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                  <label className="text-label-md" style={{ color: "var(--on-surface)" }}>Password</label>
-                  <div style={{ position: "relative" }}>
-                    <span
-                      className="material-symbols-outlined"
-                      style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--outline)", fontSize: 18 }}
-                    >lock</span>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-semibold text-on-background">Password</label>
+                  <div className="relative">
+                    <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" style={{ fontSize: 18 }}>lock</span>
                     <input
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      style={{
-                        width: "100%",
-                        padding: "10px 12px 10px 38px",
-                        background: "var(--surface-container-high)",
-                        border: "2px solid transparent",
-                        borderRadius: 10,
-                        fontSize: 14,
-                        outline: "none",
-                        transition: "all 0.2s ease",
-                      }}
+                      className="w-full pl-9 pr-3 py-2.5 rounded-lg text-sm outline-none transition-all"
+                      style={{ background: "var(--surface-container-high)", border: "2px solid transparent" }}
                       onFocus={(e) => { e.currentTarget.style.background = "var(--surface-container-lowest)"; e.currentTarget.style.borderColor = "var(--primary)" }}
                       onBlur={(e) => { e.currentTarget.style.background = "var(--surface-container-high)"; e.currentTarget.style.borderColor = "transparent" }}
                       placeholder="Min 6 characters"
@@ -285,28 +131,17 @@ export default function RegisterPage() {
                   </div>
                 </div>
 
-                {/* Role */}
-                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                  <label className="text-label-md" style={{ color: "var(--on-surface)" }}>I am a</label>
-                  <div style={{ display: "flex", gap: 12 }}>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-xs font-semibold text-on-background">I am a</label>
+                  <div className="flex gap-3">
                     <button
                       type="button"
                       onClick={() => setRole("TEACHER")}
+                      className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-semibold transition-all"
                       style={{
-                        flex: 1,
-                        padding: "12px 16px",
-                        borderRadius: 10,
                         border: role === "TEACHER" ? "2px solid var(--primary)" : "2px solid var(--outline-variant)",
                         background: role === "TEACHER" ? "var(--primary-fixed)" : "var(--surface-container-high)",
                         color: role === "TEACHER" ? "var(--on-primary-fixed-variant)" : "var(--on-surface-variant)",
-                        fontWeight: 600,
-                        fontSize: 14,
-                        cursor: "pointer",
-                        transition: "all 0.2s ease",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: 8,
                       }}
                     >
                       <span className="material-symbols-outlined" style={{ fontSize: 18 }}>school</span>
@@ -315,21 +150,11 @@ export default function RegisterPage() {
                     <button
                       type="button"
                       onClick={() => setRole("STUDENT")}
+                      className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-semibold transition-all"
                       style={{
-                        flex: 1,
-                        padding: "12px 16px",
-                        borderRadius: 10,
                         border: role === "STUDENT" ? "2px solid var(--primary)" : "2px solid var(--outline-variant)",
                         background: role === "STUDENT" ? "var(--primary-fixed)" : "var(--surface-container-high)",
                         color: role === "STUDENT" ? "var(--on-primary-fixed-variant)" : "var(--on-surface-variant)",
-                        fontWeight: 600,
-                        fontSize: 14,
-                        cursor: "pointer",
-                        transition: "all 0.2s ease",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: 8,
                       }}
                     >
                       <span className="material-symbols-outlined" style={{ fontSize: 18 }}>psychology</span>
@@ -342,17 +167,10 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={loading}
+                className="w-full py-3 rounded-lg text-sm font-semibold border-none transition-all disabled:opacity-50"
                 style={{
-                  width: "100%",
-                  padding: "12px 16px",
-                  borderRadius: 10,
-                  border: "none",
                   background: loading ? "var(--primary-container)" : "var(--primary)",
                   color: loading ? "var(--on-primary-container)" : "var(--on-primary)",
-                  fontSize: 14,
-                  fontWeight: 600,
-                  cursor: loading ? "not-allowed" : "pointer",
-                  transition: "all 0.2s ease",
                   boxShadow: "0 4px 12px rgba(0,104,95,0.2)",
                 }}
                 onMouseEnter={(e) => { if (!loading) e.currentTarget.style.opacity = "0.9" }}
@@ -361,10 +179,10 @@ export default function RegisterPage() {
                 {loading ? "Creating account..." : "Create Account"}
               </button>
 
-              <div style={{ textAlign: "center" }}>
-                <a href="/login" className="text-label-sm" style={{ color: "var(--on-surface-variant)", textDecoration: "none" }}>
+              <div className="text-center">
+                <a href="/login" className="text-xs text-on-surface-variant no-underline hover:text-primary transition-colors">
                   Already have an account?{" "}
-                  <span style={{ color: "var(--primary)", fontWeight: 600 }}>Sign in</span>
+                  <span className="text-primary font-semibold">Sign in</span>
                 </a>
               </div>
             </form>

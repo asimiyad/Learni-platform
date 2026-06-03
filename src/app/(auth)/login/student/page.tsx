@@ -6,48 +6,34 @@ import { SiteLogo } from "@/components/SiteLogo"
 
 export default function StudentLoginPage() {
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 24,
-        position: "relative",
-        overflow: "hidden",
-        background: "var(--surface-bright)",
-      }}
-    >
-      {/* Decorative background */}
-      <div style={{ position: "absolute", top: -100, left: -80, width: 320, height: 320, borderRadius: "50%", background: "radial-gradient(circle, var(--primary-fixed) 0%, transparent 70%)", opacity: 0.4, pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: -80, right: -60, width: 280, height: 280, borderRadius: "50%", background: "radial-gradient(circle, var(--tertiary-fixed) 0%, transparent 70%)", opacity: 0.15, pointerEvents: "none" }} />
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 relative overflow-hidden bg-surface-bright">
+      <div className="absolute top-[-100px] left-[-80px] w-[320px] h-[320px] rounded-full opacity-40 pointer-events-none" style={{ background: "radial-gradient(circle, var(--primary-fixed) 0%, transparent 70%)" }} />
+      <div className="absolute bottom-[-80px] right-[-60px] w-[280px] h-[280px] rounded-full opacity-15 pointer-events-none" style={{ background: "radial-gradient(circle, var(--tertiary-fixed) 0%, transparent 70%)" }} />
 
-      <div style={{ width: "100%", maxWidth: 440, position: "relative" }}>
-        <Link href="/login" style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 13, color: "var(--on-surface-variant)", textDecoration: "none", marginBottom: 24 }}>
+      <div className="w-full max-w-sm relative">
+        <Link href="/login" className="inline-flex items-center gap-1 text-xs text-on-surface-variant no-underline mb-6 hover:text-primary transition-colors">
           <span className="material-symbols-outlined" style={{ fontSize: 16 }}>arrow_back</span>
           Back
         </Link>
 
-        <div style={{ textAlign: "center", marginBottom: 28 }}>
-          <SiteLogo className="h-16 w-16 mx-auto mb-3" color="var(--primary)" />
-          <h1 className="text-headline-lg" style={{ color: "var(--on-surface)", margin: 0 }}>
+        <div className="text-center mb-7">
+          <SiteLogo className="h-14 w-14 sm:h-16 sm:w-16 mx-auto mb-3" color="var(--primary)" />
+          <h1 className="text-xl sm:text-2xl font-bold text-on-background" style={{ margin: 0 }}>
             Welcome back!
           </h1>
-          <p className="text-body-md" style={{ marginTop: 6, color: "var(--on-surface-variant)" }}>
+          <p className="text-sm text-on-surface-variant mt-1.5">
             Sign in to continue your learning adventure
           </p>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 24, flexWrap: "wrap" }}>
+        <div className="flex justify-center gap-2 mb-6 flex-wrap">
           {["Learn", "Earn Points", "Win Badges"].map((pill) => (
             <span
               key={pill}
-              className="text-label-sm"
+              className="text-[11px] font-semibold px-3 py-1.5 rounded-full border"
               style={{
-                padding: "5px 14px",
-                borderRadius: 99,
                 background: "var(--primary-fixed)",
-                border: "1.5px solid var(--primary-fixed-dim)",
+                borderColor: "var(--primary-fixed-dim)",
                 color: "var(--on-primary-fixed-variant)",
               }}
             >
@@ -56,20 +42,20 @@ export default function StudentLoginPage() {
           ))}
         </div>
 
-        <div className="bento-card" style={{ padding: "32px 28px" }}>
-          <div style={{ height: 4, borderRadius: 99, background: "linear-gradient(90deg, var(--primary-fixed) 0%, var(--primary) 50%, var(--primary-fixed) 100%)", marginBottom: 24 }} />
+        <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant p-6 sm:p-7 shadow-sm">
+          <div className="h-1 rounded-full mb-5" style={{ background: "linear-gradient(90deg, var(--primary-fixed) 0%, var(--primary) 50%, var(--primary-fixed) 100%)" }} />
           <LoginForm />
 
-          <div style={{ marginTop: 20, paddingTop: 20, borderTop: "1px solid var(--outline-variant)" }}>
-            <p className="text-label-sm" style={{ color: "var(--on-surface-variant)", marginBottom: 8, textAlign: "center" }}>Demo Account</p>
+          <div className="mt-5 pt-5 border-t border-outline-variant">
+            <p className="text-xs text-on-surface-variant mb-2 text-center font-medium">Demo Account</p>
             <DemoButton email="student@learni.edu" password="password123" label="Login as Demo Student" />
           </div>
         </div>
 
-        <p style={{ textAlign: "center", marginTop: 16 }}>
-          <Link href="/register" className="text-label-sm" style={{ color: "var(--on-surface-variant)", textDecoration: "none" }}>
+        <p className="text-center mt-4">
+          <Link href="/register" className="text-xs text-on-surface-variant no-underline hover:text-primary transition-colors">
             New to Learni?{" "}
-            <span style={{ color: "var(--primary)", fontWeight: 600 }}>Create an account</span>
+            <span className="text-primary font-semibold">Create an account</span>
           </Link>
         </p>
       </div>
