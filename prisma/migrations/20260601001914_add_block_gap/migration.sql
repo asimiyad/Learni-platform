@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Lesson" ADD COLUMN     "blockGap" INTEGER NOT NULL DEFAULT 24;

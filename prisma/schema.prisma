@@ -1,0 +1,374 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String  @id @default(cuid())
+  name      String?
+  email     String  @unique
+  password  String?
+  image     String?
+  role      String  @default("STUDENT")
+
+  accounts Account[]
+  sessions Session[]
+
+  lessons      Lesson[]
+  subjects     Subject[]
+  enrolledLessons StudentLesson[]
+
+  libraryBlocks    TeacherLibraryBlock[]
+  libraryTemplates TeacherLibraryTemplate[]
+  dailyActivity    DailyActivity[]
+  weeklyBadges     WeeklyBadge[]
+  couponRequests   CouponRequest[]
+  termlyRewards    TermlyRewardRequest[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String  @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Subject {
+  id        String  @id @default(cuid())
+  name      String
+  grade     Int
+  icon      String?
+  teacherId String
+
+  teacher User   @relation(fields: [teacherId], references: [id])
+  lessons Lesson[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([teacherId, name, grade])
+}
+
+model Tag {
+  id   String @id @default(cuid())
+  name String @unique
+
+  lessons LessonTag[]
+}
+
+model LessonTag {
+  lessonId String
+  tagId    String
+
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([lessonId, tagId])
+}
+
+model Lesson {
+  id                String   @id @default(cuid())
+  title             String
+  passThreshold     Int?
+  timeLimit         Int?
+  thumbnail         String?
+  status            String   @default("DRAFT")
+  totalPoints       Int      @default(0)
+  estimatedDuration Int?
+  blockGap          Int      @default(24)
+  teacherId         String
+  subjectId         String
+
+  teacher User    @relation(fields: [teacherId], references: [id])
+  subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+  sections Section[]
+  tags LessonTag[]
+  enrollments StudentLesson[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([teacherId])
+  @@index([subjectId])
+}
+
+model Section {
+  id         String @id @default(cuid())
+  lessonId   String
+  orderIndex Int
+  config     String @default("{}")
+
+  lesson Lesson       @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  blocks  LessonBlock[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([lessonId, orderIndex])
+}
+
+model LessonBlock {
+  id         String @id @default(cuid())
+  sectionId  String
+  blockType  String
+  config     String @default("{}")
+  gridColumn Int    @default(1)
+  gridRow    Int    @default(1)
+  gridWidth  Int    @default(12)
+  gridHeight Int    @default(1)
+  stepOrder  Int    @default(-1)
+
+  section   Section        @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  attempts  BlockAttempt[]
+  submissions BlockSubmission[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sectionId])
+}
+
+model StudentLesson {
+  id              String    @id @default(cuid())
+  studentId       String
+  lessonId        String
+  status          String    @default("NOT_STARTED")
+  score           Int       @default(0)
+  currentStepIndex Int      @default(0)
+  totalSteps      Int       @default(0)
+  startedAt       DateTime?
+  completedAt     DateTime?
+
+  student User   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  lesson  Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  attempts BlockAttempt[]
+  submissions BlockSubmission[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([studentId, lessonId])
+  @@index([studentId])
+  @@index([lessonId])
+}
+
+model BlockAttempt {
+  id              String   @id @default(cuid())
+  studentLessonId String
+  blockId         String
+  attemptNumber   Int
+  answerJson      String   @default("{}")
+  isCorrect       Boolean  @default(false)
+  pointsEarned    Int      @default(0)
+
+  studentLesson StudentLesson @relation(fields: [studentLessonId], references: [id], onDelete: Cascade)
+  block         LessonBlock   @relation(fields: [blockId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([studentLessonId])
+  @@index([blockId])
+}
+
+model BlockSubmission {
+  id              String   @id @default(cuid())
+  studentLessonId String
+  blockId         String
+  fileUrl         String?
+  dataJson        String   @default("{}")
+
+  studentLesson StudentLesson @relation(fields: [studentLessonId], references: [id], onDelete: Cascade)
+  block         LessonBlock   @relation(fields: [blockId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([studentLessonId])
+  @@index([blockId])
+}
+
+model TeacherLibraryBlock {
+  id        String @id @default(cuid())
+  teacherId String
+  name      String
+  blockType String
+  config    String @default("{}")
+
+  teacher User @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+}
+
+model TeacherLibraryTemplate {
+  id          String  @id @default(cuid())
+  teacherId   String
+  name        String
+  description String?
+  thumbnail   String?
+
+  teacher User          @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  blocks  TemplateBlock[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TemplateBlock {
+  id         String @id @default(cuid())
+  templateId String
+  orderIndex Int
+  blockType  String
+  config     String @default("{}")
+
+  template TeacherLibraryTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+
+  @@index([templateId, orderIndex])
+}
+
+model GlobalTemplate {
+  id               String   @id @default(cuid())
+  name             String
+  description      String?
+  subject          String
+  grade            Int
+  difficulty       String   @default("BEGINNER")
+  thumbnailUrl     String?
+  estimatedMinutes Int?
+  totalPoints      Int      @default(0)
+  tags             String   @default("")
+  isFeatured       Boolean  @default(false)
+  popularity       Int      @default(0)
+  category         String   @default("general")
+
+  sections GlobalTemplateSection[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([subject, grade])
+  @@index([category])
+}
+
+model GlobalTemplateSection {
+  id         String @id @default(cuid())
+  templateId String
+  orderIndex Int
+  title      String @default("")
+
+  template GlobalTemplate          @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  blocks   GlobalTemplateBlock[]
+
+  @@index([templateId, orderIndex])
+}
+
+model GlobalTemplateBlock {
+  id         String @id @default(cuid())
+  sectionId  String
+  blockType  String
+  config     String @default("{}")
+  gridColumn Int    @default(1)
+  gridWidth  Int    @default(12)
+
+  section GlobalTemplateSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  @@index([sectionId])
+}
+
+// ─── Gamification ───
+
+model DailyActivity {
+  id        String   @id @default(cuid())
+  studentId String
+  student   User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  date      DateTime
+  pointsEarned Int   @default(0)
+
+  createdAt DateTime @default(now())
+
+  @@unique([studentId, date])
+  @@index([studentId])
+}
+
+model WeeklyBadge {
+  id        String   @id @default(cuid())
+  studentId String
+  student   User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  weekStart DateTime
+  title     String
+  createdAt DateTime @default(now())
+
+  @@index([weekStart])
+  @@index([studentId])
+}
+
+model CouponRequest {
+  id         String    @id @default(cuid())
+  studentId  String
+  student    User      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  month      Int
+  year       Int
+  pointsCost Int       @default(500)
+  status     String    @default("PENDING")
+  barcode    String?
+  approvedAt DateTime?
+  approvedBy String?
+  createdAt  DateTime  @default(now())
+
+  @@unique([studentId, month, year])
+  @@index([status])
+}
+
+model TermlyRewardRequest {
+  id         String    @id @default(cuid())
+  studentId  String
+  student    User      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  term       String
+  status     String    @default("PENDING")
+  redeemedAt DateTime?
+  approvedBy String?
+  createdAt  DateTime  @default(now())
+
+  @@unique([studentId, term])
+  @@index([status])
+}
+
+model SiteSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
