@@ -1,6 +1,6 @@
 "use client"
 
-import { LoginForm } from "../login-form"
+import { LoginForm, DemoButton } from "../login-form"
 import Link from "next/link"
 import { SiteLogo } from "@/components/SiteLogo"
 
